@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "multiplatform-library-template"
 include(":library")
+include("schema-ksp")

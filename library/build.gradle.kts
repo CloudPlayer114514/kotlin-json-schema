@@ -38,6 +38,7 @@ kotlin {
             dependencies {
                 //put your multiplatform dependencies here
                 implementation(libs.kotlinx.serialization.json)
+                implementation(kotlin("reflect"))
             }
         }
         val jvmTest by getting {
@@ -45,6 +46,11 @@ kotlin {
                 implementation(libs.kotlin.test)
             }
         }
+    }
+
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 }
 

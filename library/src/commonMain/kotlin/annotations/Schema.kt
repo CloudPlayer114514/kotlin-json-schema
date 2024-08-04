@@ -19,7 +19,7 @@ import kotlinx.serialization.SerialInfo
 annotation class ExtraProperty(
     val key: String = "",
     val value: String = "",
-    val jsonType: JsonType = JsonType.JsonElement
+    val jsonType: JsonType = JsonType.JSON_ELEMENT
 )
 
 /**
@@ -43,52 +43,11 @@ annotation class MetaAnnotation(
  * 用于指示 ksp 为注解所在的类生成对应的 schema 扩展属性。
  * schema 属性是 ksp 为该类或函数生成 JSON Schema（版本 2020_12，根据主构造器中的属性，或是函数的入参生成）。
  *
- * ```
- * @Schema
- * fun doSomeThing(name: String, age: Int, student: Student) = Unit
- *
- * // 入参需有 Serializable 注解才能够正常解析类型
- * @Serializable
- * @Schema
- * data class Student(val studentId: Int, val address: List<String>)
- *
- * ::doSomeThing.schema // 将输出以下结果
- *
- * {
- *   "$schema" : "https://json-schema.org/draft/2020-12/schema",
- *   "type" : "object",
- *   "properties" : {
- *     "age" : {
- *       "type" : "integer",
- *       "format" : "int32"
- *     },
- *     "name" : {
- *       "type" : "string"
- *     },
- *     "student" : {
- *       "type" : "object",
- *       "properties" : {
- *         "address" : {
- *           "type" : "array",
- *           "items" : {
- *             "type" : "string"
- *           }
- *         },
- *         "studentId" : {
- *           "type" : "integer",
- *           "format" : "int32"
- *         }
- *       }
- *     }
- *   }
- * }
- *
- * ```
  */
 @OptIn(ExperimentalSerializationApi::class)
 @Target(AnnotationTarget.CLASS, AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.FUNCTION)
 @SerialInfo
-annotation class Schema
+expect annotation class Schema()
 
 @OptIn(ExperimentalSerializationApi::class)
 @MetaAnnotation("description", "description")

@@ -6,6 +6,8 @@ import kotlin.reflect.KFunction
 import kotlin.reflect.KType
 
 expect sealed class SchemaGenerator(schemaModule: SchemaModule) {
+    val schemaModule: SchemaModule
+
     companion object : SchemaGenerator
 
     fun createSchema(type: KType): JsonObject

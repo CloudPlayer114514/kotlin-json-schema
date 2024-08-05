@@ -10,6 +10,7 @@ plugins {
 
 kotlin {
     jvm()
+    js()
     androidTarget {
         publishLibraryVariants("release")
         @OptIn(ExperimentalKotlinGradlePluginApi::class)

@@ -11,7 +11,7 @@ import kotlin.reflect.KFunction
 import kotlin.reflect.KType
 import kotlin.reflect.typeOf
 
-actual sealed class SchemaGenerator actual constructor(val schemaModule: SchemaModule) {
+actual sealed class SchemaGenerator actual constructor(actual val schemaModule: SchemaModule) {
     actual companion object : SchemaGenerator(GlobalSchemaModule)
 
     actual fun createSchema(type: KType): JsonObject {

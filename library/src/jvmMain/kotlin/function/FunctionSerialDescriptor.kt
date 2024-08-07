@@ -8,6 +8,12 @@ import kotlin.reflect.KFunction
 import kotlin.reflect.KParameter
 
 interface FunctionSerialDescriptor<out F : KFunction<R>, out R> : SerialDescriptor {
+    companion object {
+        operator fun <F : KFunction<R>, R> invoke(function: F): FunctionSerialDescriptor<F, R> {
+            return FunctionSerialDescriptorImpl(function)
+        }
+    }
+
     val function: F
 
     @ExperimentalSerializationApi
@@ -61,8 +67,4 @@ interface FunctionSerialDescriptor<out F : KFunction<R>, out R> : SerialDescript
     private fun getParameter(index: Int): KParameter {
         return function.parameters[index]
     }
-}
-
-fun <F : KFunction<R>, R> FunctionSerialDescriptor(function: F): FunctionSerialDescriptor<F, R> {
-    return FunctionSerialDescriptorImpl(function)
 }

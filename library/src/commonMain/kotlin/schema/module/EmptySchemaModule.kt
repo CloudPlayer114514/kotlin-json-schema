@@ -10,10 +10,6 @@ internal object EmptySchemaModule : SchemaModule {
     override fun parserOrNull(descriptor: SerialDescriptor): SchemaParser? {
         return null
     }
-
-    override fun registerParser(registerFor: SerialDescriptor, parser: SchemaParser) {
-        error("EmptySchemaModule does not support registering parsers")
-    }
 }
 
 fun emptySchemaModule(): SchemaModule = EmptySchemaModule

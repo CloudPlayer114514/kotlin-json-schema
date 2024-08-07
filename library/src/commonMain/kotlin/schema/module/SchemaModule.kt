@@ -8,13 +8,11 @@ internal val defaultParsers = mutableListOf(
     ArraySchemaParser(), ObjectSchemaParser(), EnumSchemaParser(),
     StringSchemaParser(), BooleanSchemaParser(), ByteSchemaParser(),
     ShortSchemaParser(), IntSchemaParser(), LongSchemaParser(),
-    FloatSchemaParser(), DoubleSchemaParser(), CharSchemaParser(),
+    FloatSchemaParser(), DoubleSchemaParser(), CharSchemaParser(), EmptySchemaParser(),
 )
 
 interface SchemaModule {
     val parsers: Map<SerialDescriptor, SchemaParser>
-
-    fun registerParser(registerFor: SerialDescriptor, parser: SchemaParser)
 
     fun parserOrNull(descriptor: SerialDescriptor): SchemaParser?
 
@@ -25,7 +23,17 @@ interface SchemaModule {
     }
 }
 
-internal fun SchemaModule.getOrRegisterParser(
+interface MutableSchemaModule : SchemaModule {
+    fun registerParser(registerFor: SerialDescriptor, parser: SchemaParser)
+
+    fun updateFrom(module: SchemaModule) {
+        module.parsers.forEach { (descriptor, parser) ->
+            registerParser(descriptor, parser)
+        }
+    }
+}
+
+fun MutableSchemaModule.getOrRegisterParser(
     descriptor: SerialDescriptor,
     parser: (SchemaModule) -> SchemaParser
 ): SchemaParser {

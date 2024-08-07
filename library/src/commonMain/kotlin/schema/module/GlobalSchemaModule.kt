@@ -3,7 +3,7 @@ package com.yunbao.kotlin.schema.schema.module
 import com.yunbao.kotlin.schema.schema.parse.SchemaParser
 import kotlinx.serialization.descriptors.SerialDescriptor
 
-object GlobalSchemaModule : SchemaModule {
+object GlobalSchemaModule : MutableSchemaModule {
     private val runtimeParsers = mutableMapOf<SerialDescriptor, SchemaParser>()
 
     override val parsers: Map<SerialDescriptor, SchemaParser>

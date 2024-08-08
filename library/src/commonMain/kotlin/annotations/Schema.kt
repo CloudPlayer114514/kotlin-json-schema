@@ -3,6 +3,7 @@ package com.yunbao.kotlin.schema.annotations
 import com.yunbao.kotlin.schema.json.JsonType
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialInfo
+import kotlin.reflect.KClass
 
 /**
  * 用于添加一对额外的 Json 的 key-value 键值对的注解。
@@ -37,6 +38,20 @@ annotation class MetaAnnotation(
     val name: String = "",
     val valueName: String = "",
     vararg val objectProperties: String = [],
+)
+
+/**
+ * 标注于注解的属性上。该注解用于指示该属性可以用来替代 `targetAnnotation` 中指定注解的 `propertyName` 属性。
+ *
+ * 需要注意的是，如果 `propertyName` 为空字符串，则表示该属性可以用来替代 `targetAnnotation` 中与该属性同名的属性。
+ *
+ * `targetAnnotation` 所指定的注解必须注解于注解之上。
+ */
+@Target(AnnotationTarget.PROPERTY)
+@MustBeDocumented
+annotation class MergeFor(
+    val targetAnnotation: KClass<out Annotation>,
+    val propertyName: String = "",
 )
 
 /**

@@ -1,7 +1,4 @@
-import com.yunbao.kotlin.schema.annotations.Description
-import com.yunbao.kotlin.schema.annotations.ExtraProperty
-import com.yunbao.kotlin.schema.annotations.MetaAnnotation
-import com.yunbao.kotlin.schema.annotations.Schema
+import com.yunbao.kotlin.schema.annotations.*
 import kotlinx.serialization.Serializable
 import kotlin.reflect.KClass
 
@@ -11,6 +8,7 @@ import kotlin.reflect.KClass
 @ExtraProperty("extra2", "homo114514")
 @TestAnnotation
 @Description("This is a test class")
+@MergedAnnotation
 data class TestClass(val str: String, val arr: List<Int>)
 
 @MetaAnnotation
@@ -20,4 +18,10 @@ annotation class TestAnnotation(
     val kClass: KClass<out Any> = ArrayList::class,
     val short: Short = 1,
     val long: Long = 1
+)
+
+@Description
+annotation class MergedAnnotation(
+    @MergeFor(Description::class)
+    val description: String = "",
 )

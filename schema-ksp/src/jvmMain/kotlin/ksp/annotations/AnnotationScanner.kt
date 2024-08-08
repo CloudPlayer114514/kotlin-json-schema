@@ -7,7 +7,8 @@ import com.yunbao.kotlin.schema.utils.annotations
 import com.yunbao.kotlin.schema.utils.isAnnotationTypeOf
 import kotlin.reflect.KClass
 
-class AnnotationScanner(
+@JvmInline
+value class AnnotationScanner(
     private val annotations: Sequence<KSAnnotation>,
 ) {
     constructor(annotatedElement: KSAnnotated) : this(annotatedElement.annotations)
